@@ -596,7 +596,7 @@ nav {
   transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
   padding: 0 28px;
 }
-.skill-category.open .skill-cat-body { max-height: 200px; padding: 0 28px 24px; }
+.skill-category.open .skill-cat-body { max-height: 320px; padding: 0 28px 24px; }
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
@@ -768,8 +768,6 @@ nav {
   margin-top: 4px;
   display: block;
 }
-
-/* CERTS */
 #certs {
   padding: 120px 40px;
   background: var(--gray1);
@@ -1310,366 +1308,10 @@ footer {
 
   .certs-grid { grid-template-columns: 1fr 1fr; }
 }
-
-/* ===== MOBILE 768px ===== */
-@media (max-width: 768px) {
-  nav { padding: 16px 20px; }
-  .nav-links { display: none; }
-  .nav-menu-btn { display: block; }
-
-  #hero { padding: 0 20px 80px; min-height: 100dvh; }
-  .hero-counter { display: none; }
-  .hero-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-  }
-  .hero-desc { max-width: 100%; min-width: unset; }
-  .hero-stats { gap: 24px; }
-  .hero-cta { width: 100%; justify-content: center; }
-  .hero-scroll-hint { bottom: 16px; }
-  .hero-scroll-hint .scroll-line { height: 24px; }
-
-  #about { padding: 72px 20px; }
-  #skills { padding: 72px 20px; }
-  .skills-header { flex-direction: column; gap: 20px; }
-  .skills-desc { max-width: 100%; }
-  .skill-cat-body.open { max-height: 300px; }
-
-  #projects { padding: 72px 20px; }
-  .project-item {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 32px 0;
-  }
-  .proj-index { display: none; }
-  .proj-meta { min-width: unset; max-width: 100%; }
-  .proj-actions { flex-direction: row; flex-wrap: wrap; }
-  .proj-metrics { margin-top: 12px; }
-
-  #certs { padding: 72px 20px; }
-  .certs-grid { grid-template-columns: 1fr; }
-  .cert-item { padding: 24px; }
-
-  #achievements { padding: 72px 20px; }
-  .achieve-cards { grid-template-columns: 1fr; }
-  .achieve-card { padding: 28px; }
-
-  #journey { padding: 72px 20px; }
-  .tl-entry { grid-template-columns: 72px 1fr; gap: 12px; }
-  .tl-entry::before { left: 72px; }
-  .tl-content { padding-left: 12px; }
-
-  #contact { padding: 72px 20px; }
-  .contact-links-row {
-    flex-direction: column;
-  }
-  .contact-link-item {
-    border-right: none;
-    border-bottom: 1px solid var(--gray3);
-    min-width: unset;
-  }
-  .contact-link-item:last-child { border-bottom: none; }
-  .cli-val { font-size: 11px; }
-  .cf-row { grid-template-columns: 1fr; }
-  .cf-group.full { grid-column: span 1; }
-
-  footer { flex-direction: column; padding: 24px 20px; text-align: center; align-items: center; }
-  .footer-right { justify-content: center; gap: 16px; }
-
-  body { cursor: auto; }
-  #cur, #cur-trail, #cur-text { display: none; }
-
-  .skill-cat-header { cursor: pointer; }
-}
-
-/* ===== SMALL MOBILE 480px ===== */
-@media (max-width: 480px) {
-  nav { padding: 14px 16px; }
-  #hero { padding: 0 16px 80px; }
-  #about, #skills, #projects, #certs, #achievements, #journey, #contact {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  footer { padding: 20px 16px; }
-
-  .hero-stats { gap: 20px; }
-  .hero-stat-val { font-size: 28px; }
-
-  .about-h2 { font-size: clamp(36px, 10vw, 56px); }
-  .journey-h2 { font-size: clamp(36px, 10vw, 56px); }
-
-  .project-item { padding: 24px 0; }
-  .proj-title-large { font-size: clamp(22px, 7vw, 36px); }
-
-  .achieve-card { padding: 24px; }
-  .achieve-num { font-size: 52px; }
-
-  .cert-item { padding: 20px; }
-  .cert-name { font-size: clamp(16px, 5vw, 24px); }
-
-  .tl-entry { grid-template-columns: 60px 1fr; }
-  .tl-entry::before { left: 60px; }
-
-  .contact-h2 { font-size: clamp(44px, 13vw, 80px); }
-  .contact-sub { margin-bottom: 32px; }
-  .contact-links-row { margin-bottom: 32px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
-</style>
-</head>
-<body>
-
-<div id="prog"></div>
-<div id="cur"><div id="cur-dot"></div></div>
-<div id="cur-trail"></div>
-<div id="cur-text"></div>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">SMR</a>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Stack</a>
-    <a href="#projects">Work</a>
-    <a href="#certs">Certs</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <button class="nav-menu-btn" id="mob-nav-btn">Menu ≡</button>
-</nav>
-
-<!-- Mobile nav -->
-<div id="mob-nav" style="display:none;position:fixed;inset:0;background:var(--black);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:32px;">
-  <a href="#about" onclick="document.getElementById('mob-nav').style.display='none'" style="font-family:var(--f-display);font-size:48px;color:var(--white);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em">About</a>
-  <a href="#skills" onclick="document.getElementById('mob-nav').style.display='none'" style="font-family:var(--f-display);font-size:48px;color:var(--white);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em">Stack</a>
-  <a href="#projects" onclick="document.getElementById('mob-nav').style.display='none'" style="font-family:var(--f-display);font-size:48px;color:var(--white);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em">Work</a>
-  <a href="#certs" onclick="document.getElementById('mob-nav').style.display='none'" style="font-family:var(--f-display);font-size:48px;color:var(--white);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em">Certs</a>
-  <a href="#contact" onclick="document.getElementById('mob-nav').style.display='none'" style="font-family:var(--f-display);font-size:48px;color:var(--acid);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em">Contact</a>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg">
-    <div class="hero-bg-grid"></div>
-  </div>
-  <div class="hero-counter" aria-hidden="true">
-    <span class="hero-counter-num">01</span>
-  </div>
-  <div class="hero-eyebrow">
-    <span class="hero-status"><span class="status-dot"></span>Available for opportunities</span>
-    &nbsp;/&nbsp;
-    AI Engineer &amp; Full-Stack Developer
-  </div>
-  <h1 class="hero-h1" id="hero-h1">
-    <span class="line-wrap" style="overflow:hidden;display:block"><span id="hl1">Syed</span></span>
-    <span class="line-wrap" style="overflow:hidden;display:block"><span id="hl2" class="italic">Muhammad</span></span>
-    <span class="line-wrap" style="overflow:hidden;display:block"><span id="hl3" class="outlined">Rizvi.</span></span>
-  </h1>
-  <div class="hero-bottom">
-    <p class="hero-desc">Computer Science undergrad at SRM University — building AI pipelines, full-stack systems, and end-to-end intelligent products from Chennai, India.</p>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-val">9.12</span>
-        <span class="hero-stat-lbl">GPA</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">4+</span>
-        <span class="hero-stat-lbl">Projects</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">4</span>
-        <span class="hero-stat-lbl">Certs</span>
-      </div>
-    </div>
-    <a href="#projects" class="hero-cta">View My Work →</a>
-  </div>
-  <div class="hero-scroll-hint">
-    <div class="scroll-line"></div>
-    <span class="scroll-label">Scroll</span>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-section" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">AI/ML Engineering <span class="marquee-dot"></span></span>
-    <span class="marquee-item">Full-Stack Development <span class="marquee-dot"></span></span>
-    <span class="marquee-item">Cloud Architecture <span class="marquee-dot"></span></span>
-    <span class="marquee-item">Python · FastAPI · Next.js <span class="marquee-dot"></span></span>
-    <span class="marquee-item">TensorFlow · XGBoost · LSTM <span class="marquee-dot"></span></span>
-    <span class="marquee-item">AWS Certified <span class="marquee-dot"></span></span>
-    <span class="marquee-item">IEEE Published <span class="marquee-dot"></span></span>
-    <span class="marquee-item">SRM University, Chennai <span class="marquee-dot"></span></span>
-    <span class="marquee-item">AI/ML Engineering <span class="marquee-dot"></span></span>
-    <span class="marquee-item">Full-Stack Development <span class="marquee-dot"></span></span>
-    <span class="marquee-item">Cloud Architecture <span class="marquee-dot"></span></span>
-    <span class="marquee-item">Python · FastAPI · Next.js <span class="marquee-dot"></span></span>
-    <span class="marquee-item">TensorFlow · XGBoost · LSTM <span class="marquee-dot"></span></span>
-    <span class="marquee-item">AWS Certified <span class="marquee-dot"></span></span>
-    <span class="marquee-item">IEEE Published <span class="marquee-dot"></span></span>
-    <span class="marquee-item">SRM University, Chennai <span class="marquee-dot"></span></span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-left">
-    <div class="section-tag" data-num="00 —">About</div>
-    <h2 class="about-h2 gsap-reveal">Where data,<em>algorithms meet</em>product.</h2>
-    <p class="about-body gsap-reveal">I'm a <strong>Computer Science undergraduate at SRM University, Chennai</strong>, specializing in Information Technology. I work at the intersection of AI research and product engineering — designing intelligent systems end-to-end.</p>
-    <p class="about-body gsap-reveal">From data pipelines and model training to REST APIs and responsive interfaces — I keep <strong>performance, scalability, and clean architecture</strong> at the core of everything I build.</p>
-    <p class="about-body gsap-reveal">Currently seeking internships, research collaborations, and impactful engineering opportunities where AI meets real-world problems.</p>
-    <a href="mailto:syedrizvi041@gmail.com" class="about-cta gsap-reveal">syedrizvi041@gmail.com →</a>
-  </div>
-  <div class="about-right">
-    <div class="about-info-stack">
-      <div class="info-row gsap-reveal">
-        <span class="info-label">Education</span>
-        <span class="info-val">B.Tech Computer Science (IT)</span>
-        <span class="info-sub">SRM University Kattankulathur · 2023–2027</span>
-      </div>
-      <div class="info-row gsap-reveal">
-        <span class="info-label">Academic Performance</span>
-        <span class="info-val" style="color:var(--acid);font-family:var(--f-display);font-size:24px">9.12 / 10.0 GPA</span>
-        <span class="info-sub">Consistent across all semesters</span>
-      </div>
-      <div class="info-row gsap-reveal">
-        <span class="info-label">Research</span>
-        <span class="info-val">ISED 2025 · NIT Raipur · IEEE Indexed</span>
-        <span class="info-sub">"Intelligent Home Automation with Weather Forecasting"</span>
-      </div>
-      <div class="info-row gsap-reveal">
-        <span class="info-label">Core Domains</span>
-        <span class="info-val">AI/ML · Full-Stack · Cloud</span>
-      </div>
-      <div class="info-row gsap-reveal">
-        <span class="info-label">Location</span>
-        <span class="info-val">Chennai, India</span>
-      </div>
-    </div>
-    <blockquote class="about-quote gsap-reveal">"I build toward the standard where the system just works, the interface just makes sense, and the data just flows."</blockquote>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="skills-header">
-    <h2 class="skills-h2 gsap-reveal">Tech<span>Stack.</span></h2>
-    <p class="skills-desc gsap-reveal">A carefully curated stack spanning AI/ML research, full-stack engineering, cloud infrastructure, and data science.</p>
-  </div>
-  <div class="skills-orbit">
-    <div class="skill-category open">
-      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
-        <div class="skill-cat-name"><span class="skill-cat-num">01</span>AI &amp; Machine Learning</div>
-        <span class="skill-cat-arrow">+</span>
-      </div>
-      <div class="skill-cat-body">
-        <div class="skill-tags">
-          <span class="skill-tag">Scikit-learn</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Keras</span><span class="skill-tag">XGBoost</span><span class="skill-tag">LSTM</span><span class="skill-tag">GRU</span><span class="skill-tag">NLP</span><span class="skill-tag">Computer Vision</span><span class="skill-tag">OpenCV</span><span class="skill-tag">Feature Engineering</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-category">
-      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
-        <div class="skill-cat-name"><span class="skill-cat-num">02</span>Frontend &amp; Web</div>
-        <span class="skill-cat-arrow">+</span>
-      </div>
-      <div class="skill-cat-body">
-        <div class="skill-tags">
-          <span class="skill-tag">React</span><span class="skill-tag">Next.js 14</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">HTML5 / CSS3</span><span class="skill-tag">JavaScript</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-category">
-      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
-        <div class="skill-cat-name"><span class="skill-cat-num">03</span>Backend &amp; APIs</div>
-        <span class="skill-cat-arrow">+</span>
-      </div>
-      <div class="skill-cat-body">
-        <div class="skill-tags">
-          <span class="skill-tag">Python</span><span class="skill-tag">Flask</span><span class="skill-tag">FastAPI</span><span class="skill-tag">REST API</span><span class="skill-tag">JWT Auth</span><span class="skill-tag">WebSockets</span><span class="skill-tag">Prisma ORM</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-category">
-      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
-        <div class="skill-cat-name"><span class="skill-cat-num">04</span>Cloud &amp; DevOps</div>
-        <span class="skill-cat-arrow">+</span>
-      </div>
-      <div class="skill-cat-body">
-        <div class="skill-tags">
-          <span class="skill-tag">AWS EC2</span><span class="skill-tag">AWS S3</span><span class="skill-tag">AWS Lambda</span><span class="skill-tag">Vercel</span><span class="skill-tag">Render</span><span class="skill-tag">Git / GitHub</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-category">
-      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
-        <div class="skill-cat-name"><span class="skill-cat-num">05</span>Data &amp; Databases</div>
-        <span class="skill-cat-arrow">+</span>
-      </div>
-      <div class="skill-cat-body">
-        <div class="skill-tags">
-          <span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Supabase</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span><span class="skill-tag">Plotly</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-category">
-      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
-        <div class="skill-cat-name"><span class="skill-cat-num">06</span>Languages &amp; Core CS</div>
-        <span class="skill-cat-arrow">+</span>
-      </div>
-      <div class="skill-cat-body">
-        <div class="skill-tags">
-          <span class="skill-tag">Java</span><span class="skill-tag">C++</span><span class="skill-tag">C</span><span class="skill-tag">DSA</span><span class="skill-tag">OOP</span><span class="skill-tag">DBMS</span><span class="skill-tag">OS Basics</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="projects-header">
-    <h2 class="projects-h2 gsap-reveal">Selected<span class="ghost">Work.</span></h2>
-    <div class="projects-count gsap-reveal">04 Projects</div>
-  </div>
-
-  <!-- SkyLy -->
-  <div class="project-item gsap-reveal">
-    <div class="proj-index">01 /</div>
-    <div class="proj-main">
-      <div class="proj-title-large">SkyLy</div>
-      <p class="proj-desc-text">Full-stack AQI intelligence platform integrating real-time satellite, historical, and forecast data for multi-city monitoring with ML-powered health recommendations.</p>
-      <div class="proj-metrics">
-        <div class="proj-metric-cell"><span class="proj-metric-val">17.73</span><span class="proj-metric-key">MAE Score</span></div>
-        <div class="proj-metric-cell"><span class="proj-metric-val">0.829</span><span class="proj-metric-key">R² Score</span></div>
-        <div class="proj-metric-cell"><span class="proj-metric-val">3</span><span class="proj-metric-key">ML Models</span></div>
-        <div class="proj-metric-cell"><span class="proj-metric-val">FS</span><span class="proj-metric-key">Architecture</span></div>
-      </div>
-    </div>
-    <div class="proj-meta">
-      <span class="proj-badge-new">Featured</span>
-      <div class="proj-tags-list">
-        <span class="proj-tag-item">Python · FastAPI</span>
-        <span class="proj-tag-item">XGBoost · LSTM · GRU</span>
-        <span class="proj-tag-item">Next.js · TypeScript</span>
-        <span class="proj-tag-item">Supabase · PostgreSQL</span>
-      </div>
-    </div>
-    <div class="proj-actions">
-      <a href="https://github.com/Syedd18/SkyLy" target="_blank" rel="noopener" class="proj-link-btn primary">GitHub ↗</a>
-    </div>
-  </div>
-
-  <!-- CloudDrive -->
-  <div class="project-item gsap-reveal">
-    <div class="proj-index">02 /</div>
+    <div class="proj-index">03 /</div>
     <div class="proj-main">
       <div class="proj-title-large">CloudDrive</div>
-      <p class="proj-desc-text">Production-ready cloud storage platform with secure authentication, file management, and a polished responsive UI — Google Drive in scope and quality.</p>
+      <p class="proj-desc-text">Full-stack cloud storage platform with secure JWT-based authentication and authorization via Supabase Auth, file upload/preview/search/sharing, storage analytics, and a responsive mobile-first UI. Engineered end-to-end file management — CRUD operations, soft-delete/restore, and access control — with PostgreSQL and Prisma ORM for structured, scalable backend operations.</p>
     </div>
     <div class="proj-meta">
       <div class="proj-tags-list">
@@ -1685,16 +1327,21 @@ footer {
 
   <!-- Pothole Detection -->
   <div class="project-item gsap-reveal">
-    <div class="proj-index">03 /</div>
+    <div class="proj-index">04 /</div>
     <div class="proj-main">
       <div class="proj-title-large">Pothole Detection</div>
-      <p class="proj-desc-text">CNN-based computer vision pipeline that classifies road surface conditions from images, with a desktop GUI for real-time detection and inference.</p>
+      <p class="proj-desc-text">Computer vision classification system using transfer learning with MobileNetV2 and EfficientNetB0, achieving 92% classification accuracy. Applied image preprocessing, normalization, and data augmentation to expand the training set by 2,000+ images, then deployed the fine-tuned CNN through a FastAPI REST API and Tkinter app for real-time inference with confidence scores.</p>
+      <div class="proj-metrics">
+        <div class="proj-metric-cell"><span class="proj-metric-val">92%</span><span class="proj-metric-key">Accuracy</span></div>
+        <div class="proj-metric-cell"><span class="proj-metric-val">2K+</span><span class="proj-metric-key">Augmented Images</span></div>
+      </div>
     </div>
     <div class="proj-meta">
       <div class="proj-tags-list">
-        <span class="proj-tag-item">Python · CNN</span>
+        <span class="proj-tag-item">MobileNetV2</span>
+        <span class="proj-tag-item">EfficientNetB0</span>
         <span class="proj-tag-item">Keras · TensorFlow</span>
-        <span class="proj-tag-item">OpenCV · Tkinter</span>
+        <span class="proj-tag-item">FastAPI · Tkinter</span>
       </div>
     </div>
     <div class="proj-actions">
@@ -1704,7 +1351,7 @@ footer {
 
   <!-- Research -->
   <div class="project-item gsap-reveal">
-    <div class="proj-index">04 /</div>
+    <div class="proj-index">05 /</div>
     <div class="proj-main">
       <div class="proj-title-large">Home Automation Research</div>
       <p class="proj-desc-text">Published IEEE research: Intelligent home automation system with ML-powered weather forecasting and alert integration. Presented at ISED 2025, NIT Raipur.</p>
@@ -1791,7 +1438,7 @@ footer {
         <div class="tl-title">B.Tech CS (IT)</div>
         <div class="tl-org">SRM University Kattankulathur</div>
         <ul class="tl-points">
-          <li class="tl-point">Maintained 9.12 GPA — consistent top performance</li>
+          <li class="tl-point">Maintained 9.22 GPA — consistent top performance</li>
           <li class="tl-point">Algorithms, DBMS, OS, Software Engineering</li>
           <li class="tl-point">Deep self-driven focus on AI/ML beyond coursework</li>
         </ul>
