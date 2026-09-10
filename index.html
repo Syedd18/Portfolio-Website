@@ -42,6 +42,10 @@ body {
   cursor: none;
 }
 
+@media (max-width: 768px) {
+  body { cursor: auto; }
+}
+
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--black); }
@@ -54,6 +58,7 @@ body {
   z-index: 9999;
   mix-blend-mode: difference;
   transition: transform 0.1s;
+  top: 0; left: 0;
 }
 #cur-dot {
   width: 10px; height: 10px;
@@ -80,6 +85,7 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9997;
+  top: 0; left: 0;
   transform: translate(-50%, -50%);
   transition: transform 0.25s cubic-bezier(0.23,1,0.32,1), width 0.3s, height 0.3s;
 }
@@ -164,6 +170,29 @@ nav {
   padding: 8px 14px;
   cursor: pointer;
 }
+.mob-nav {
+  display: none;
+  position: fixed;
+  top: 61px; left: 0; right: 0;
+  z-index: 899;
+  background: rgba(3,3,3,0.97);
+  border-top: 1px solid var(--gray3);
+  border-bottom: 1px solid var(--gray3);
+  flex-direction: column;
+  padding: 8px 40px 20px;
+}
+.mob-nav a {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gray3);
+  opacity: 0.8;
+}
+.mob-nav a:last-child { border-bottom: none; }
 
 /* HERO */
 #hero {
@@ -253,7 +282,9 @@ nav {
   position: relative;
   z-index: 2;
   margin-bottom: 8px;
+  overflow: hidden;
 }
+.hero-h1 span { display: block; overflow: hidden; }
 .hero-h1 .italic {
   font-family: var(--f-serif);
   font-style: italic;
@@ -379,6 +410,7 @@ nav {
   display: flex;
   gap: 0;
   white-space: nowrap;
+  width: max-content;
   animation: marquee 30s linear infinite;
 }
 @keyframes marquee {
@@ -1308,7 +1340,312 @@ footer {
 
   .certs-grid { grid-template-columns: 1fr 1fr; }
 }
-    <div class="proj-index">03 /</div>
+
+/* ===== SMALL BREAKPOINT 768px ===== */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+
+  #hero, #about, #skills, #projects, #certs, #achievements, #journey, #contact {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hero-counter { display: none; }
+  .hero-h1 { font-size: clamp(44px, 14vw, 90px); }
+  .hero-bottom { flex-direction: column; align-items: flex-start; }
+  .hero-stats { gap: 20px; }
+
+  .skills-header { flex-direction: column; gap: 20px; }
+
+  .projects-header { grid-template-columns: 1fr; }
+  .project-item { grid-template-columns: 1fr; }
+  .proj-actions { flex-direction: column; }
+
+  .achieve-cards { grid-template-columns: 1fr; }
+  .certs-grid { grid-template-columns: 1fr; }
+
+  .contact-links-row { flex-direction: column; }
+  .contact-link-item { border-right: none; border-bottom: 1px solid var(--gray3); }
+  .contact-link-item:last-child { border-bottom: none; }
+  .cf-row { grid-template-columns: 1fr; }
+  .cf-group.full { grid-column: span 1; }
+
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-trail"></div>
+<div id="prog"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">S. RIZVI</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Work</a>
+    <a href="#certs">Certs</a>
+    <a href="#journey">Journey</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-menu-btn" id="mob-nav-btn">Menu</button>
+</nav>
+<div class="mob-nav" id="mob-nav">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Work</a>
+  <a href="#certs">Certs</a>
+  <a href="#journey">Journey</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"><div class="hero-bg-grid"></div></div>
+  <div class="hero-counter" aria-hidden="true">
+    <span class="hero-counter-num">AI</span>
+  </div>
+
+  <div class="hero-eyebrow">
+    <span class="hero-status"><span class="status-dot"></span>Available for opportunities</span>
+    <span>Chennai, India</span>
+  </div>
+
+  <h1 class="hero-h1">
+    <span><span id="hl1">Syed Muhammad</span></span>
+    <span><span id="hl2" class="outlined">Rizvi</span></span>
+    <span><span id="hl3" class="italic">builds intelligent systems.</span></span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">AI/ML engineer and full-stack developer studying Computer Science at SRM University. I build ML-powered platforms end to end — from data pipelines to production APIs.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val">9.22</span>
+        <span class="hero-stat-lbl">GPA / 10.0</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">Top 6%</span>
+        <span class="hero-stat-lbl">SHL Assessment</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">1</span>
+        <span class="hero-stat-lbl">IEEE Paper</span>
+      </div>
+    </div>
+    <a href="#projects" class="hero-cta">View Work →</a>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span class="scroll-label">Scroll</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>Machine Learning</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Deep Learning</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Generative AI</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Computer Vision</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>FastAPI</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Next.js</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>AWS</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>PostgreSQL</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><span class="marquee-dot"></span>Machine Learning</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Deep Learning</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Generative AI</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Computer Vision</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>FastAPI</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Next.js</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>AWS</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>PostgreSQL</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-tag" data-num="01 —">About</div>
+    <h2 class="about-h2">Engineering<em>that thinks.</em></h2>
+    <p class="about-body">I'm a Computer Science undergraduate at <strong>SRM University Kattankulathur</strong>, specialising in Information Technology, with a self-driven focus on AI/ML that goes well beyond coursework.</p>
+    <p class="about-body">My work spans <strong>full-stack platforms</strong> and <strong>ML systems</strong> — from a 235K-record air quality intelligence platform to a computer-vision pothole detector deployed as a real-time API. I care about the whole pipeline: clean data, sound models, and interfaces that make the results usable.</p>
+    <a href="mailto:syedrizvi041@gmail.com" class="about-cta">syedrizvi041@gmail.com →</a>
+  </div>
+  <div class="about-right">
+    <div class="about-info-stack">
+      <div class="info-row">
+        <span class="info-label">Location</span>
+        <span class="info-val">Chennai, India</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Education</span>
+        <span class="info-val">B.Tech CS (IT), SRM University</span>
+        <span class="info-sub">Aug 2023 – May 2027 · GPA 9.22 / 10.0</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Focus</span>
+        <span class="info-val">Machine Learning · Generative AI · Full-Stack Systems</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Availability</span>
+        <span class="info-val">Open to internships &amp; research collaborations</span>
+      </div>
+    </div>
+    <p class="about-quote">"The best engineering feels invisible — the system just works, the interface makes sense, the data just flows."</p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-header">
+    <h2 class="skills-h2">Technical<span>Toolkit.</span></h2>
+    <p class="skills-desc">Languages, ML frameworks, and infrastructure I use to take a system from raw data to production.</p>
+  </div>
+  <div class="skills-orbit">
+    <div class="skill-category open">
+      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
+        <span class="skill-cat-name"><span class="skill-cat-num">01</span>Languages</span>
+        <span class="skill-cat-arrow">+</span>
+      </div>
+      <div class="skill-cat-body">
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">C++</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
+        <span class="skill-cat-name"><span class="skill-cat-num">02</span>AI / ML</span>
+        <span class="skill-cat-arrow">+</span>
+      </div>
+      <div class="skill-cat-body">
+        <div class="skill-tags">
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">XGBoost</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Keras</span>
+          <span class="skill-tag">CNNs</span>
+          <span class="skill-tag">RNNs</span>
+          <span class="skill-tag">LSTM / GRU</span>
+          <span class="skill-tag">NLP</span>
+          <span class="skill-tag">Transformers</span>
+          <span class="skill-tag">Generative AI</span>
+          <span class="skill-tag">LLMs</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">Embeddings</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
+        <span class="skill-cat-name"><span class="skill-cat-num">03</span>Data Science</span>
+        <span class="skill-cat-arrow">+</span>
+      </div>
+      <div class="skill-cat-body">
+        <div class="skill-tags">
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Matplotlib</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">EDA</span>
+          <span class="skill-tag">Data Preprocessing</span>
+          <span class="skill-tag">Feature Engineering</span>
+          <span class="skill-tag">Classification</span>
+          <span class="skill-tag">Regression</span>
+          <span class="skill-tag">Clustering</span>
+          <span class="skill-tag">Cross Validation</span>
+          <span class="skill-tag">Geospatial Visualization</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
+        <span class="skill-cat-name"><span class="skill-cat-num">04</span>Frameworks &amp; Tools</span>
+        <span class="skill-cat-arrow">+</span>
+      </div>
+      <div class="skill-cat-body">
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">JWT</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header" onclick="toggleSkill(this.parentElement)">
+        <span class="skill-cat-name"><span class="skill-cat-num">05</span>Databases &amp; Core CS</span>
+        <span class="skill-cat-arrow">+</span>
+      </div>
+      <div class="skill-cat-body">
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Supabase</span>
+          <span class="skill-tag">Prisma ORM</span>
+          <span class="skill-tag">DBMS</span>
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">Data Structures &amp; Algorithms</span>
+          <span class="skill-tag">Operating Systems</span>
+          <span class="skill-tag">Computer Networks</span>
+          <span class="skill-tag">SDLC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header">
+    <h2 class="projects-h2">Selected<span class="ghost">Work.</span></h2>
+    <span class="projects-count">04 Projects &amp; Research</span>
+  </div>
+
+  <!-- SkyLy -->
+  <div class="project-item gsap-reveal">
+    <div class="proj-index">01 /</div>
+    <div class="proj-main">
+      <div class="proj-title-large">SkyLy</div>
+      <p class="proj-desc-text">Full-stack air quality intelligence platform processing 235K+ records across 291 Indian cities, integrating historical AQI, satellite, and weather data. Engineered lag features, rolling statistics, and K-Means clustering; benchmarked XGBoost, LSTM, and GRU models for forecasting. Built an interactive Next.js dashboard with geospatial visualization, city comparison, and AI-powered health insights, backed by scalable FastAPI REST APIs.</p>
+      <div class="proj-metrics">
+        <div class="proj-metric-cell"><span class="proj-metric-val">235K+</span><span class="proj-metric-key">Records Processed</span></div>
+        <div class="proj-metric-cell"><span class="proj-metric-val">291</span><span class="proj-metric-key">Cities Covered</span></div>
+        <div class="proj-metric-cell"><span class="proj-metric-val">0.829</span><span class="proj-metric-key">XGBoost R²</span></div>
+        <div class="proj-metric-cell"><span class="proj-metric-val">50%+</span><span class="proj-metric-key">Latency Reduction</span></div>
+      </div>
+    </div>
+    <div class="proj-meta">
+      <span class="proj-badge-new">Flagship</span>
+      <div class="proj-tags-list">
+        <span class="proj-tag-item">Python · FastAPI</span>
+        <span class="proj-tag-item">Next.js · Supabase</span>
+        <span class="proj-tag-item">XGBoost · LSTM · GRU</span>
+      </div>
+    </div>
+    <div class="proj-actions">
+      <a href="https://github.com/Syedd18" target="_blank" rel="noopener" class="proj-link-btn primary">GitHub ↗</a>
+    </div>
+  </div>
+
+  <!-- CloudDrive -->
+  <div class="project-item gsap-reveal">
+    <div class="proj-index">02 /</div>
     <div class="proj-main">
       <div class="proj-title-large">CloudDrive</div>
       <p class="proj-desc-text">Full-stack cloud storage platform with secure JWT-based authentication and authorization via Supabase Auth, file upload/preview/search/sharing, storage analytics, and a responsive mobile-first UI. Engineered end-to-end file management — CRUD operations, soft-delete/restore, and access control — with PostgreSQL and Prisma ORM for structured, scalable backend operations.</p>
@@ -1327,7 +1664,7 @@ footer {
 
   <!-- Pothole Detection -->
   <div class="project-item gsap-reveal">
-    <div class="proj-index">04 /</div>
+    <div class="proj-index">03 /</div>
     <div class="proj-main">
       <div class="proj-title-large">Pothole Detection</div>
       <p class="proj-desc-text">Computer vision classification system using transfer learning with MobileNetV2 and EfficientNetB0, achieving 92% classification accuracy. Applied image preprocessing, normalization, and data augmentation to expand the training set by 2,000+ images, then deployed the fine-tuned CNN through a FastAPI REST API and Tkinter app for real-time inference with confidence scores.</p>
@@ -1351,7 +1688,7 @@ footer {
 
   <!-- Research -->
   <div class="project-item gsap-reveal">
-    <div class="proj-index">05 /</div>
+    <div class="proj-index">04 /</div>
     <div class="proj-main">
       <div class="proj-title-large">Home Automation Research</div>
       <p class="proj-desc-text">Published IEEE research: Intelligent home automation system with ML-powered weather forecasting and alert integration. Presented at ISED 2025, NIT Raipur.</p>
@@ -1415,12 +1752,18 @@ footer {
     <div class="achieve-card gsap-reveal">
       <div class="achieve-year-tag">2025</div>
       <span class="achieve-num" aria-hidden="true">02</span>
+      <div class="achieve-title">Top 6% — SHL Assessment</div>
+      <div class="achieve-sub">Ranked among the top 6% institution-wide in SHL cognitive and aptitude assessments at SRM University.</div>
+    </div>
+    <div class="achieve-card gsap-reveal">
+      <div class="achieve-year-tag">2025</div>
+      <span class="achieve-num" aria-hidden="true">03</span>
       <div class="achieve-title">Hackathon Finalist</div>
       <div class="achieve-sub">NSSC Hackathon at SRM University — reached the finals among hundreds of competing teams.</div>
     </div>
     <div class="achieve-card gsap-reveal">
       <div class="achieve-year-tag">2025</div>
-      <span class="achieve-num" aria-hidden="true">03</span>
+      <span class="achieve-num" aria-hidden="true">04</span>
       <div class="achieve-title">Smart India Hackathon</div>
       <div class="achieve-sub">Participated in SIH internal selection round — one of India's most prestigious student hackathon competitions.</div>
     </div>
@@ -1602,11 +1945,15 @@ if (!isMobile) {
       trail.style.borderColor = 'rgba(184,255,71,0.25)';
     });
   });
+} else {
+  cur.style.display = 'none';
+  trail.style.display = 'none';
 }
 
 /* SCROLL PROGRESS */
 window.addEventListener('scroll', () => {
-  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  const max = document.body.scrollHeight - window.innerHeight;
+  const p = max > 0 ? (window.scrollY / max) * 100 : 0;
   document.getElementById('prog').style.width = p + '%';
 }, { passive: true });
 
@@ -1621,10 +1968,16 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* MOBILE NAV */
-document.getElementById('mob-nav-btn').addEventListener('click', () => {
-  const n = document.getElementById('mob-nav');
-  n.style.display = n.style.display === 'none' ? 'flex' : 'none';
-});
+const mobBtn = document.getElementById('mob-nav-btn');
+const mobNav = document.getElementById('mob-nav');
+if (mobBtn && mobNav) {
+  mobBtn.addEventListener('click', () => {
+    mobNav.style.display = mobNav.style.display === 'flex' ? 'none' : 'flex';
+  });
+  mobNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { mobNav.style.display = 'none'; });
+  });
+}
 
 /* SKILL ACCORDION */
 function toggleSkill(el) {
