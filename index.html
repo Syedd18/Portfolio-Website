@@ -41,18 +41,33 @@ h2{font-size:clamp(40px,6vw,88px)}
 .tag{display:inline-block;font-size:12px;font-weight:500;background:var(--acc);color:var(--bg);padding:3px 10px;margin-bottom:18px}
 #cr{position:fixed;left:-16px;top:-16px;width:32px;height:32px;border:1px solid var(--acc);border-radius:50%;pointer-events:none;z-index:300;opacity:0;transition:width .2s,height .2s,margin .2s,background .2s}
 #cr.h{width:56px;height:56px;margin:-12px;background:color-mix(in srgb,var(--acc) 14%,transparent)}
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+/* TOP BAR */
+.top{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .logo{font:400 24px var(--d);text-decoration:none;display:flex;align-items:center;gap:10px}
 .logo i{width:12px;height:12px;border-radius:50%;background:var(--acc)}
 .nr{display:flex;gap:10px}
-.nb{font:500 13px var(--b);background:none;color:var(--ink);border:1px solid var(--rule);padding:7px 16px;cursor:pointer}
+.nb{font:500 13px var(--b);background:none;color:var(--ink);border:1px solid var(--rule);padding:7px 16px;cursor:pointer;min-width:76px}
 .nb:hover{border-color:var(--acc);color:var(--acc)}
-#mo{position:fixed;inset:0;z-index:90;background:var(--bg);padding:90px clamp(20px,5vw,72px) 40px;display:flex;flex-direction:column;justify-content:center}
-#mo[hidden]{display:none}
-#mo a{font:400 clamp(40px,8vw,96px)/1.05 var(--d);text-decoration:none;display:flex;align-items:baseline;gap:18px;border-top:1px solid var(--rule);padding:6px 0;transition:color .2s,padding .3s}
-#mo a:hover{color:var(--acc);padding-left:16px}
-#mo a span{font:500 12px var(--m);color:var(--mut)}
+/* MENU OVERLAY (centered) */
+#mo{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;align-items:center;text-align:center;overflow-y:auto;overscroll-behavior:contain;padding:84px clamp(20px,5vw,72px) 32px;clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .6s cubic-bezier(.7,0,.2,1),visibility 0s .6s}
+#mo.open{clip-path:inset(0);visibility:visible;transition:clip-path .6s cubic-bezier(.7,0,.2,1),visibility 0s}
+.mn{margin-top:auto;display:flex;flex-direction:column;align-items:center;width:100%;max-width:760px}
+.mn a{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0;min-height:60px;border-top:1px solid var(--rule);text-decoration:none;opacity:0;transform:translateY(24px);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1),color .2s}
+.mn a:last-child{border-bottom:1px solid var(--rule)}
+#mo.open .mn a{opacity:1;transform:none;transition-delay:calc(.2s + var(--i)*.05s),calc(.2s + var(--i)*.05s),0s}
+.mn a::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--acc);transform:scaleX(0);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.mn a:hover::before,.mn a:focus-visible::before{transform:scaleX(1)}
+.mn a:hover,.mn a:focus-visible{color:var(--acc)}
+.mn .mt2{display:flex;align-items:baseline;justify-content:center;gap:14px}
+.mn .mi{font:500 12px var(--m);color:var(--mut)}
+.mn b{font:400 clamp(34px,5.2vw,64px)/1.05 var(--d)}
+.mn a:hover b,.mn a:focus-visible b{font-style:italic}
+.mn em{display:none;font:normal 400 13px var(--b);color:var(--mut)}
+@media(min-height:820px) and (min-width:901px){.mn em{display:block}}
+.ma{margin-bottom:auto;padding-top:28px;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transition:opacity .5s}
+#mo.open .ma{opacity:1;transition-delay:.55s}
+.ma .st{display:flex;gap:10px;align-items:center;font:500 12px var(--m)}.ma .st b{width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.ma .ls{display:flex;gap:10px 26px;flex-wrap:wrap;justify-content:center}
 /* HERO */
 #hero{position:relative;min-height:max(100svh,620px);display:flex;flex-direction:column;justify-content:space-between;padding-top:88px;padding-bottom:36px;overflow:hidden}
 #hc{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
@@ -132,11 +147,28 @@ ol.pp li::before{content:counter(s,decimal-leading-zero);font:500 11px var(--m);
 .rt h3{font-size:clamp(34px,4.6vw,64px);margin-bottom:10px;color:var(--acc)}.rt p{font-size:14px;color:var(--mut);margin-inline:auto}
 /* TOOLKIT */
 .tw{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:30px}
-.rw2{display:grid;grid-template-columns:190px 1fr 124px;gap:20px;padding:20px 0;border-top:1px solid var(--rule);align-items:start}
-.rw2:last-of-type{border-bottom:1px solid var(--rule)}
-.rw2 h3{font-size:28px}.rw2 p{max-width:none;color:var(--mut);font-size:15px}
 .pj{display:flex;gap:8px}.pj u{text-decoration:none;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--rule);font:500 10px/21px var(--m);text-align:center;color:var(--mut)}
 .pj u.on{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.tkb{display:flex;gap:6px;margin:8px 0 40px}
+.tkb button{flex:var(--n) 1 0;min-width:0;text-align:left;font:500 12px var(--b);color:var(--ink);background:none;border:1px solid var(--rule);border-top:3px solid var(--ink);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px;transition:background .25s,color .25s,border-color .25s}
+.tkb button span{font:400 clamp(14px,1.7vw,22px)/1.1 var(--d);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tkb button small{font:500 11px var(--m);color:var(--mut)}
+.tkb button:hover{border-color:var(--acc)}
+.tkb button[aria-selected=true]{background:var(--ink);color:var(--bg);border-top-color:var(--acc)}
+.tkb button[aria-selected=true] small{color:var(--bg);opacity:.7}
+.tkg{display:grid;grid-template-columns:4fr 8fr;gap:clamp(24px,5vw,80px);align-items:start}
+.tkh{position:sticky;top:90px}
+.tkh h3{font-size:clamp(44px,6vw,96px);line-height:.9;margin-bottom:16px}
+.tkh p{font-size:14px;color:var(--mut);margin-bottom:16px}
+.tkh .pj{margin:10px 0 6px}.tkh .pj u{width:28px;height:28px;font-size:11px;line-height:25px}
+.tkt{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.tkt li{background:var(--bg);padding:18px 14px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;opacity:0;transform:translateY(10px);animation:tki .5s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*22ms);transition:background .2s}
+.tkt li:hover{background:var(--pan)}
+@keyframes tki{to{opacity:1;transform:none}}
+.ic{width:30px;height:30px;background:var(--ink);-webkit-mask:var(--u) center/contain no-repeat;mask:var(--u) center/contain no-repeat;transition:background .2s}
+.tkt li:hover .ic{background:var(--acc)}
+.ic.mg{background:none;-webkit-mask:none;mask:none;border:1px solid var(--rule);font:500 11px/28px var(--m);text-align:center;color:var(--mut)}
+.tkt span.nm{font:400 19px/1.1 var(--d)}
 /* RECORD + JOURNEY */
 .rc,.jg{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px)}
 .rc h3,.jg h2{font-size:clamp(34px,4.4vw,64px);margin-bottom:26px}
@@ -163,19 +195,33 @@ footer div{display:flex;gap:22px;flex-wrap:wrap}
 .wh{flex-direction:column;align-items:flex-start}
 .ring{max-width:none;aspect-ratio:auto;display:flex;flex-wrap:wrap;gap:8px}.ring svg{display:none}
 .ring button.n{position:static;transform:none}.rt{position:static;transform:none;width:100%;text-align:left;margin-top:12px}.rt p{margin:0}
-.rw2{grid-template-columns:1fr;gap:8px}.fr{grid-template-columns:1fr}.tl>li{grid-template-columns:1fr;gap:4px}
+.fr{grid-template-columns:1fr}.tl>li{grid-template-columns:1fr;gap:4px}
+.mn b{font-size:clamp(32px,9vw,48px)}
+.tkb{overflow-x:auto;scrollbar-width:none}.tkb button{flex:0 0 auto;min-width:130px}.tkg{grid-template-columns:1fr}.tkh{position:static}.tkt{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#dots i{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#dots i{transform:scale(1)}.tkt li{opacity:1;transform:none}.mn a,.ma{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 <div id="cr" aria-hidden="true"></div>
-<nav class="w" aria-label="Primary">
+<nav class="top w" aria-label="Primary">
 <a class="logo" href="#hero"><i></i>S. M. Rizvi</a>
-<div class="nr"><button class="nb" id="th" type="button" aria-label="Switch colour theme">Theme</button><button class="nb" id="mb" type="button" aria-expanded="false" aria-controls="mo">Index</button></div>
+<div class="nr"><button class="nb" id="th" type="button" aria-label="Switch colour theme">Theme</button><button class="nb" id="mb" type="button" aria-expanded="false" aria-controls="mo">Menu</button></div>
 </nav>
-<div id="mo" hidden>
-<a href="#about"><span>01</span>About</a><a href="#work"><span>02</span>Work</a><a href="#method"><span>03</span>Approach</a><a href="#toolkit"><span>04</span>Toolkit</a><a href="#record"><span>05</span>Credentials</a><a href="#journey"><span>06</span>Journey</a><a href="#contact"><span>07</span>Contact</a>
+<div id="mo" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
+<div class="mn">
+<a href="#about" style="--i:0"><span class="mt2"><span class="mi">01</span><b>About</b></span><em>Background and education</em></a>
+<a href="#work" style="--i:1"><span class="mt2"><span class="mi">02</span><b>Work</b></span><em>SkyLy, CloudDrive, Pothole Detection</em></a>
+<a href="#method" style="--i:2"><span class="mt2"><span class="mi">03</span><b>Approach</b></span><em>How I work through a problem</em></a>
+<a href="#toolkit" style="--i:3"><span class="mt2"><span class="mi">04</span><b>Toolkit</b></span><em>Languages, data, AI, tools</em></a>
+<a href="#record" style="--i:4"><span class="mt2"><span class="mi">05</span><b>Credentials</b></span><em>AWS, SAP, milestones</em></a>
+<a href="#journey" style="--i:5"><span class="mt2"><span class="mi">06</span><b>Journey</b></span><em>Education and focus</em></a>
+<a href="#contact" style="--i:6"><span class="mt2"><span class="mi">07</span><b>Contact</b></span><em>Email and message form</em></a>
+</div>
+<div class="ma">
+<span class="st"><b></b>Available for opportunities · Chennai, India</span>
+<div class="ls"><a class="ln" href="mailto:syedrizvi041@gmail.com">Email</a><a class="ln" href="https://github.com/Syedd18" target="_blank" rel="noopener">GitHub ↗</a><a class="ln" href="https://www.linkedin.com/in/syed-muhammad-rizvi-477b85234" target="_blank" rel="noopener">LinkedIn ↗</a><a class="ln" href="https://drive.google.com/file/d/123HVOdOehU2M-Lxu3M3TS7Ez-WgfXH1C/view?usp=sharing" target="_blank" rel="noopener">Resume ↗</a></div>
+</div>
 </div>
 
 <header id="hero" class="w">
@@ -187,7 +233,7 @@ footer div{display:flex;gap:22px;flex-wrap:wrap}
 <h2>Engineering intelligent tools for real-world problems.</h2>
 <div>
 <p>AI/ML engineer and full-stack developer studying Computer Science at SRM University. I build ML-powered platforms end to end, from data pipelines to production APIs, and I’m drawn to using intelligent tools to improve how people work.</p>
-<div class="hl"><a class="ln" href="#work">See the work</a><a class="ln" href="#contact">Get in touch</a><a class="ln" href="https://drive.google.com/file/d/1H7ycwBP9a5nB9sFgPP6aWRVDigvCDLZm/view?usp=sharing" target="_blank" rel="noopener">Resume ↗</a></div>
+<div class="hl"><a class="ln" href="#work">See the work</a><a class="ln" href="#contact">Get in touch</a><a class="ln" href="https://drive.google.com/file/d/123HVOdOehU2M-Lxu3M3TS7Ez-WgfXH1C/view?usp=sharing" target="_blank" rel="noopener">Resume ↗</a></div>
 </div>
 </div>
 <div class="hs m"><span>GPA 9.22 / 10</span><span>Top 6% SHL assessment</span><span>1 IEEE paper</span><span id="hn" style="color:var(--acc)"></span></div>
@@ -309,12 +355,12 @@ footer div{display:flex;gap:22px;flex-wrap:wrap}
 </section>
 
 <section id="toolkit" class="s w inv">
-<div class="tw"><h2>Technical toolkit</h2><div class="m" style="display:flex;gap:14px;flex-wrap:wrap"><span><u class="pj" style="display:inline"></u>S SkyLy</span><span>C CloudDrive</span><span>P Pothole</span><span>R Research</span></div></div>
-<div class="rw2"><h3>Languages</h3><p>Python, SQL, C, C++</p><div class="pj" role="img" aria-label="Used in SkyLy and Pothole"><u class="on">S</u><u>C</u><u class="on">P</u><u>R</u></div></div>
-<div class="rw2"><h3>AI / ML</h3><p>Machine Learning, Deep Learning, Scikit-learn, XGBoost, TensorFlow, Keras, CNNs, RNNs, LSTM / GRU, NLP, Transformers, Generative AI, LLMs, RAG, Embeddings</p><div class="pj" role="img" aria-label="Used in SkyLy, Pothole and Research"><u class="on">S</u><u>C</u><u class="on">P</u><u class="on">R</u></div></div>
-<div class="rw2"><h3>Data science</h3><p>NumPy, Pandas, Matplotlib, Power BI, EDA, Data Preprocessing, Feature Engineering, Classification, Regression, Clustering, Cross Validation, Geospatial Visualization</p><div class="pj" role="img" aria-label="Used in SkyLy and Pothole"><u class="on">S</u><u>C</u><u class="on">P</u><u>R</u></div></div>
-<div class="rw2"><h3>Frameworks &amp; tools</h3><p>FastAPI, Next.js, OpenCV, Git, GitHub, AWS, REST APIs, JWT</p><div class="pj" role="img" aria-label="Used in SkyLy, CloudDrive and Pothole"><u class="on">S</u><u class="on">C</u><u class="on">P</u><u>R</u></div></div>
-<div class="rw2"><h3>Databases &amp; core CS</h3><p>MySQL, PostgreSQL, Supabase, Prisma ORM, DBMS, OOP, Data Structures &amp; Algorithms, Operating Systems, Computer Networks, SDLC</p><div class="pj" role="img" aria-label="Used in SkyLy and CloudDrive"><u class="on">S</u><u class="on">C</u><u>P</u><u>R</u></div></div>
+<div class="tw"><h2>Technical toolkit</h2><div class="m" style="display:flex;gap:14px;flex-wrap:wrap"><span>S SkyLy</span><span>C CloudDrive</span><span>P Pothole</span><span>R Research</span></div></div>
+<div class="tkb" id="tkb" role="tablist" aria-label="Toolkit categories"></div>
+<div class="tkg">
+<div class="tkh" aria-live="polite"><h3 id="tkn"></h3><p id="tkc"></p><div class="pj" id="tkp" role="img"></div><p class="k" id="tkl"></p></div>
+<ul class="tkt" id="tkt"></ul>
+</div>
 <p class="k" style="margin-top:16px">Filled dots show where a group appears in a project. Listing a tool here is not a claim of expertise beyond that. AWS is backed by three certifications below.</p>
 </section>
 
@@ -350,7 +396,7 @@ footer div{display:flex;gap:22px;flex-wrap:wrap}
 <div style="padding-top:clamp(0px,8vw,110px)">
 <div class="jp"><p class="k">Current focus</p><h3>ML Ops &amp; production AI systems</h3><p class="k">Time-series forecasting, LLM integration, scalable APIs</p></div>
 <div class="jp"><p class="k">Interests</p><div class="tg"><span>Generative AI</span><span>Time-Series ML</span><span>IoT Systems</span><span>Computer Vision</span><span>Cloud Architecture</span><span>Open Source</span></div></div>
-<div class="jp"><p class="k">Resume</p><a class="ln" href="https://drive.google.com/file/d/1H7ycwBP9a5nB9sFgPP6aWRVDigvCDLZm/view?usp=sharing" target="_blank" rel="noopener">View my resume ↗</a></div>
+<div class="jp"><p class="k">Resume</p><a class="ln" href="https://drive.google.com/file/d/123HVOdOehU2M-Lxu3M3TS7Ez-WgfXH1C/view?usp=sharing" target="_blank" rel="noopener">View my resume ↗</a></div>
 <div class="jp" style="border-bottom:1px solid var(--rule)"><p class="k">GitHub</p><a class="ln" href="https://github.com/Syedd18" target="_blank" rel="noopener">github.com/Syedd18 ↗</a></div>
 </div>
 </div>
@@ -360,7 +406,7 @@ footer div{display:flex;gap:22px;flex-wrap:wrap}
 <h2>Let’s build.</h2>
 <a class="em" href="mailto:syedrizvi041@gmail.com">syedrizvi041@gmail.com</a>
 <p>Open to AI/ML internships, research collaborations, full-stack projects, and impactful engineering opportunities.</p>
-<div class="cl"><a class="ln" href="https://github.com/Syedd18" target="_blank" rel="noopener">GitHub ↗</a><a class="ln" href="https://www.linkedin.com/in/syed-muhammad-rizvi-477b85234" target="_blank" rel="noopener">LinkedIn ↗</a><a class="ln" href="https://drive.google.com/file/d/1H7ycwBP9a5nB9sFgPP6aWRVDigvCDLZm/view?usp=sharing" target="_blank" rel="noopener">Resume ↗</a></div>
+<div class="cl"><a class="ln" href="https://github.com/Syedd18" target="_blank" rel="noopener">GitHub ↗</a><a class="ln" href="https://www.linkedin.com/in/syed-muhammad-rizvi-477b85234" target="_blank" rel="noopener">LinkedIn ↗</a><a class="ln" href="https://drive.google.com/file/d/123HVOdOehU2M-Lxu3M3TS7Ez-WgfXH1C/view?usp=sharing" target="_blank" rel="noopener">Resume ↗</a></div>
 <form action="https://formspree.io/f/mrebwwrk" method="POST">
 <div class="fr"><div class="fg"><label for="n">Name</label><input id="n" name="name" type="text" required autocomplete="name"/></div><div class="fg"><label for="e">Email</label><input id="e" name="email" type="email" required autocomplete="email"/></div></div>
 <div class="fg"><label for="s">Subject</label><input id="s" name="subject" type="text" placeholder="Internship, collaboration, project"/></div>
@@ -370,18 +416,23 @@ footer div{display:flex;gap:22px;flex-wrap:wrap}
 </form>
 </section>
 <div class="dr" aria-hidden="true"></div>
-<footer class="w"><span>© 2025 Syed Muhammad Rizvi</span><div><a href="https://drive.google.com/file/d/1H7ycwBP9a5nB9sFgPP6aWRVDigvCDLZm/view?usp=sharing" target="_blank" rel="noopener">Resume</a><a href="https://github.com/Syedd18" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/syed-muhammad-rizvi-477b85234" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:syedrizvi041@gmail.com">Email</a><a href="#hero">Back to top</a></div></footer>
+<footer class="w"><span>© 2026 Syed Muhammad Rizvi</span><div><a href="https://drive.google.com/file/d/123HVOdOehU2M-Lxu3M3TS7Ez-WgfXH1C/view?usp=sharing" target="_blank" rel="noopener">Resume</a><a href="https://github.com/Syedd18" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/syed-muhammad-rizvi-477b85234" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:syedrizvi041@gmail.com">Email</a><a href="#hero">Back to top</a></div></footer>
 
 <script>
 (function(){
 var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
 var RM=matchMedia('(prefers-reduced-motion:reduce)').matches,seed=11;
 function rnd(){seed=seed*16807%2147483647;return seed/2147483647}
-/* nav + theme */
+/* menu + theme */
 var mo=$('#mo'),mb=$('#mb');
-function tm(o){mo.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Index';document.body.style.overflow=o?'hidden':''}
-mb.onclick=function(){tm(mo.hidden)};$$('a',mo).forEach(function(a){a.onclick=function(){tm(false)}});
-addEventListener('keydown',function(e){if(e.key==='Escape'&&!mo.hidden){tm(false);mb.focus()}});
+function tm(o){
+ mo.classList.toggle('open',o);mo.setAttribute('aria-hidden',!o);mb.setAttribute('aria-expanded',o);
+ mb.textContent=o?'Close':'Menu';document.body.style.overflow=o?'hidden':'';
+ if(o){mo.removeAttribute('inert')}else{mo.setAttribute('inert','')}
+}
+mb.onclick=function(){tm(!mo.classList.contains('open'))};
+$$('a',mo).forEach(function(a){a.addEventListener('click',function(){tm(false)})});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&mo.classList.contains('open')){tm(false);mb.focus()}});
 $('#th').onclick=function(){var d=document.documentElement,t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}setTimeout(colors,360);if(RM)setTimeout(draw,380)};
 /* cursor ring (additive; native cursor stays) */
 if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!RM){var c=$('#cr'),cx0=0,cy0=0,tx=0,ty=0;
@@ -437,6 +488,36 @@ function sel(k){$$('.n',ring).forEach(function(b,j){b.setAttribute('aria-pressed
 S.forEach(function(s,k){var a=(-90+k*60)*Math.PI/180,b=document.createElement('button');b.type='button';b.className='n';b.textContent=(k+1)+' '+s[0];
 b.style.setProperty('--x',(50+40*Math.cos(a))+'%');b.style.setProperty('--y',(50+40*Math.sin(a))+'%');b.onclick=function(){sel(k)};ring.insertBefore(b,$('.rt',ring))});
 sel(0);
+/* Toolkit (skills match the resume exactly) */
+var CDN='https://cdn.jsdelivr.net/npm/simple-icons@11.14.0/icons/',PN={S:'SkyLy',C:'CloudDrive',P:'Pothole Detection',R:'Research'};
+var TK=[
+['Languages','SP','The core languages behind the projects.',[['Python','python'],['SQL'],['C','c'],['C++','cplusplus']]],
+['Data Analytics','SP','From raw records to features and visualisation.',[['Pandas','pandas'],['NumPy','numpy'],['EDA'],['Data Preprocessing'],['Feature Engineering'],['Matplotlib'],['Geospatial Visualization']]],
+['AI / GenAI','SPR','Models, frameworks and the generative stack.',[['Machine Learning'],['Deep Learning'],['Scikit-learn','scikitlearn'],['TensorFlow','tensorflow'],['Keras','keras'],['XGBoost'],['LLMs'],['Prompt Engineering'],['Google Gemini API','googlegemini']]],
+['Tools & Core CS','SCP','Serving, versioning, databases and fundamentals.',[['FastAPI','fastapi'],['Git','git'],['GitHub','github'],['PowerPoint','microsoftpowerpoint'],['AWS','amazonaws'],['REST APIs'],['MySQL','mysql'],['PostgreSQL','postgresql'],['DBMS'],['OOP'],['Data Structures & Algorithms'],['OS'],['Computer Networks'],['SDLC']]]
+];
+var tkb=$('#tkb'),tkt=$('#tkt'),tot=TK.reduce(function(a,c){return a+c[3].length},0);
+function mono(n){var w=n.replace(/[^A-Za-z+ ]/g,'').split(' ').filter(Boolean);return (w.length>1?w[0][0]+w[1][0]:n.slice(0,2)).toUpperCase()}
+function tk(k){
+ var c=TK[k];
+ $$('button',tkb).forEach(function(b,j){b.setAttribute('aria-selected',j===k);b.tabIndex=j===k?0:-1});
+ $('#tkn').textContent=c[0];$('#tkc').textContent=c[2];
+ var p=$('#tkp');p.innerHTML=Object.keys(PN).map(function(x){return '<u class="'+(c[1].indexOf(x)>-1?'on':'')+'">'+x+'</u>'}).join('');
+ var used=c[1].split('').map(function(x){return PN[x]}).join(', ');
+ p.setAttribute('aria-label','Used in '+used);$('#tkl').textContent='Appears in: '+used+'.';
+ tkt.innerHTML='';
+ c[3].forEach(function(s,i){
+  var li=document.createElement('li'),ic=document.createElement('span'),nm=document.createElement('span');
+  li.style.setProperty('--i',i);ic.className='ic mg';ic.setAttribute('aria-hidden','true');ic.textContent=mono(s[0]);
+  nm.className='nm';nm.textContent=s[0];li.appendChild(ic);li.appendChild(nm);tkt.appendChild(li);
+  if(s[1]){var im=new Image();im.onload=function(){ic.className='ic';ic.textContent='';ic.style.setProperty('--u','url('+CDN+s[1]+'.svg)')};im.src=CDN+s[1]+'.svg'}
+ })}
+TK.forEach(function(c,k){var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.style.setProperty('--n',c[3].length);
+ b.innerHTML='<span></span><small>'+c[3].length+' of '+tot+'</small>';b.firstChild.textContent=c[0];
+ b.onclick=function(){tk(k)};
+ b.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){var n=(k+d+TK.length)%TK.length;tk(n);$$('button',tkb)[n].focus()}};
+ tkb.appendChild(b)});
+tk(0);
 })();
 </script>
 </body>
